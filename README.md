@@ -56,7 +56,7 @@ If a file is in `client/views/fancytemplate/mine.ns.html` and declares:
 
 ```html
 <template name="mine">
-{{>>mine_subtemplate arg1 arg2}}
+${{>mine_subtemplate arg1name=arg1 arg2name="arg2"}}
 </template>
 ```
 
@@ -64,13 +64,12 @@ This will compile into:
 
 ```html
 <template name="fancytemplate_mine">
-{{>___goto template="mine_subtemplate" ___args=(args arg1 arg2)}}
+{{>___goto __template__="mine_subtemplate" arg1name=arg1 arg2name="arg2"}}
 </template>
 ```
 
 `___goto` is a global helper that dynamically determines the template to include based on
-the current template path and calls it using `Template.dynamic`, and `___args` is a global
-helper that bundles up arguments for the template.
+the current template path and calls it using `Template.dynamic`, any arguments you pass will become the template's context
 
 ###Template helpers and events
 

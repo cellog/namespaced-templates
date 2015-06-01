@@ -18,10 +18,22 @@ Package.onUse(function(api) {
   api.addFiles('goto.js', 'client')
 });
 
-Package.onTest(function(api) {
+Package.onTest(function (api) {
   api.use('tinytest');
+  api.use('htmljs');
+  api.use('templating');
   api.use('cellog:namespaced-templates');
-  api.addFiles('namespaced-templates-tests.js');
+  api.use('underscore');
+  api.use(['test-helpers', 'session', 'tracker',
+    'minimongo'], 'client');
+  api.use('spacebars-compiler');
+  api.use('minifiers'); // ensure compiler output is beautified
+
+  api.addFiles([
+    'plugin/htmlscanner.js',
+    'namespaced-templates-tests.js',
+    'namespaced-templates-source-tests.js'
+  ], 'server');
 });
 
 Package.registerBuildPlugin({

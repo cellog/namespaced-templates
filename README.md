@@ -14,6 +14,20 @@ trees to allow using a large template tree and replace a small portion of the tr
 Your namespaced templates must have a file extension of `.ns.html` and be in the spacebars
 templating language.
 
+###Requirements
+
+All namespaced templates must be declared using double quotes for attributes as in:
+
+```html
+<template name="templatename">
+```
+
+and never with single quotes:
+
+```html
+<template name='templatename'>
+```
+
 ##What is a namespaced template?
 
 If a file is in `client/views/fancytemplate/mine.ns.html` and declares:

@@ -12,8 +12,14 @@ html_scanner = {
 
   bodyAttributes : [],
 
+  processSourcename: function(source) {
+    return source
+      .replace(/^client\//g, '')
+      .replace(/^views\//g, '')
+      .replace('.ns.html', '').replace('/', '_')
+  },
   preScan: function(contents, source) {
-    var dir = source.split('_')
+    var dir = this.processSourcename(source).split('_')
     dir.pop()
     dir = dir.join('_')
     if (dir.length) dir += '_'
@@ -22,10 +28,7 @@ html_scanner = {
     return contents
   },
   scan: function (contents, source_name) {
-    var rest = this.preScan(contents, source_name
-      .replace(/^client\//g, '')
-      .replace(/^views\//g, '')
-      .replace('.ns.html', '').replace('/', '_'));
+    var rest = this.preScan(contents, source_name);
     var index = 0;
 
     var advance = function(amount) {

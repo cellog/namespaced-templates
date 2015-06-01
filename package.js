@@ -2,7 +2,7 @@ Package.describe({
   name: 'cellog:namespaced-templates',
   version: '0.0.1',
   // Brief, one-line summary of the package.
-  summary: 'Compile Spacebars templates to intelligently create their name from the path to the file.  This allows namespaced templates',
+  summary: 'Namespaced spacebars templates reduce work and allow greater flexibility',
   // URL to the Git repository containing the source code for this package.
   git: 'https://github.com/cellog/namespaced-templates',
   // By default, Meteor will default to using README.md for documentation.

@@ -11,12 +11,12 @@ trees to allow using a large template tree and replace a small portion of the tr
 
 ##How to declare namespaced templates
 
-Your namespaced templates must have a file extension of `.nshtml` and be in the spacebars
+Your namespaced templates must have a file extension of `.ns.html` and be in the spacebars
 templating language.
 
 ##What is a namespaced template?
 
-If a file is in `client/views/fancytemplate/mine.nshtml` and declares:
+If a file is in `client/views/fancytemplate/mine.ns.html` and declares:
 
 ```html
 <template name="mine">
@@ -32,7 +32,7 @@ Mine template
 </template>
 ```
 
-A second template can be created in `client/views/another/mine.nshtml`
+A second template can be created in `client/views/another/mine.ns.html`
 
 ```html
 <template name="mine">
@@ -52,7 +52,7 @@ Another template
 
 You should reference a namespaced template using the `{{>>templatename}}` operator
 
-If a file is in `client/views/fancytemplate/mine.nshtml` and declares:
+If a file is in `client/views/fancytemplate/mine.ns.html` and declares:
 
 ```html
 <template name="mine">
@@ -121,7 +121,7 @@ For example, a page visualizing a short list of items might choose to visualize 
 representation, but both should click through to the same display of individual items.  You can create a top-level template
 like this:
 
-in file `client/views/main/index.nshtml`
+in file `client/views/main/index.ns.html`
 ```html
 <template name="index">
 <h1>List of things</h1>
@@ -129,7 +129,7 @@ in file `client/views/main/index.nshtml`
 </template>
 ```
 
-in file `client/views/main/things.nshtml`
+in file `client/views/main/things.ns.html`
 ```html
 <template name="things">
 <ul>
@@ -142,7 +142,7 @@ in file `client/views/main/things.nshtml`
 
 To add the ability to display each thing graphically, all we need to do is create a new template.
 
-in file `client/views/graphical/things.nshtml`
+in file `client/views/graphical/things.ns.html`
 ```html
 <template name="things">
 <svg id="thingsvg">{{#each things}}{{dosvg this}}{{/each}}</svg>

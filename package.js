@@ -12,6 +12,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
+  api.use('blaze')
   api.addFiles('namespaced-templates.js');
 });
 
@@ -21,4 +22,10 @@ Package.onTest(function(api) {
   api.addFiles('namespaced-templates-tests.js');
 });
 
-Package.registerSourceHandler('ns.html', {isTemplate:true, archMatching: 'web'})
+Package.registerBuildPlugin({
+  name: 'namespacedTemplates',
+  use: ['underscore','templating'],
+  sources: [
+    'plugins/namespaced-templates.js'
+  ]
+})

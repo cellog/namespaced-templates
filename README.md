@@ -100,7 +100,7 @@ This is used to resolve the templates.  With this template:
 
 ```html
 <template name="mine">
-{{>>subtemplate}}
+${{>subtemplate}}
 </template>
 ```
 
@@ -124,7 +124,7 @@ in file `client/views/main/index.ns.html`
 ```html
 <template name="index">
 <h1>List of things</h1>
-  {{>>things}}
+  ${{>things}}
 </template>
 ```
 
@@ -177,3 +177,8 @@ To switch back to displaying the list template, simply change the template path 
 ```
 
 or remove the template path.
+
+##Future road map
+
+Currently, the code to parse .ns.html is a copy/paste of the template parsing code from meteor spacebars.  It would be
+best if meteor provides a way to grab this without copy/paste that is not documented yet.  If so, this will be used.

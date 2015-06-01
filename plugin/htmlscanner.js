@@ -12,14 +12,13 @@ html_scanner = {
 
   bodyAttributes : [],
 
-
   preScan: function(contents, source) {
     var dir = source.split('_')
     dir.pop()
     dir = dir.join('_')
     if (dir.length) dir += '_'
-    contents = contents.replace(/\${{>([^}\s]+)(\s+([^}]+)\s*)?}}/g, '{{> ___goto __template__="$1"$2}}')
-    contents = contents.replace('<template name="', '<template name="' + dir)
+    contents = contents.replace(/\${{>([^}\s]+)(\s+([^}]+)\s*)?}}/g, '{{> ___goto __parentcontext__=.. __template__="$1"$2}}')
+    contents = contents.replace(/<template name="/g, '<template name="' + dir)
     return contents
   },
   scan: function (contents, source_name) {

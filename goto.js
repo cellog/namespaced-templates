@@ -18,7 +18,11 @@ Template.___goto.helpers({
   },
   __args__: function() {
     var x = _.extend({}, this)
+    if (x.length == 2 && undefined !== x.__parentcontext__) {
+      return x.__parentcontext__
+    }
     delete x.__template__
+    delete x.__parentcontext__
     return x
   }
 })

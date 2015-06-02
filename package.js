@@ -12,6 +12,7 @@ Package.onUse(function(api) {
   api.use('templating')
   api.use('blaze')
   api.use('spacebars-compiler')
+  api.use('tracker')
   api.export('Namespacer')
   api.addFiles('goto.html', 'client')
   api.addFiles('goto.js', 'client')

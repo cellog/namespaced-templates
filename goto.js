@@ -1,3 +1,5 @@
+var tracker = new Tracker.Dependency
+
 function _namespacer(path) {
  this.template_path = path
 }
@@ -5,8 +7,8 @@ function _namespacer(path) {
 
 Namespacer = new _namespacer('')
 
-Namespacer.getTemplate = function(name) {
-  var path = this.template_path
+_namespacer.prototype.getTemplate = function(name) {
+  var path = this.getPath()
   if (!path) {
     path = ['']
   } else {
@@ -20,6 +22,18 @@ Namespacer.getTemplate = function(name) {
     }
   }
   return name
+}
+
+_namespacer.prototype.getPath = function() {
+  tracker.depend()
+  return this.template_path
+}
+
+_namespacer.prototype.setPath = function(name) {
+  if (name != this.template_path) {
+    tracker.changed()
+  }
+  this.template_path = name
 }
 
 var template_path
@@ -39,5 +53,5 @@ Template.___goto.helpers({
 })
 
 Template.registerHelper('set_template_path', function(data) {
-  Namespacer = new _namespacer(data)
+  Namespacer.setPath(data)
 })

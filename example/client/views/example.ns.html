@@ -1,0 +1,15 @@
+<head>
+  <title>Namespaced Templates Example</title>
+</head>
+
+<body>
+  <h1>Welcome to Namespaced Templates for Meteor example!</h1>
+
+  <h2>Please select a template path</h2>
+  <ul>
+    <li><input type="radio" name="template" id="first" value="first:second" {{selected "first:second"}}><label for="first">first:second</label></li>
+    <li><input type="radio" name="template" id="second" value="second:first" {{selected "second:first"}}><label for="second">second:first</label></li>
+    <li><input type="radio" name="template" id="none" value="" {{selected ""}}><label for="none">&lt;empty&gt;</label></li>
+  </ul>
+  ${{> hello}}
+</body>

@@ -18,12 +18,13 @@ html_scanner = {
       .replace(/^views\//g, '')
       .replace('.ns.html', '').replace('/', '_')
   },
-  preScan: function(contents, source) {
+  preScan: function(contents, source, debug) {
     var dir = this.processSourcename(source).split('_')
     dir.pop()
     dir = dir.join('_')
     if (dir.length) dir += '_'
-    contents = contents.replace(/\${{>([^}\s]+)(\s+([^}]+)\s*)?}}/g, '{{> ___goto __parentcontext__=.. __template__="$1"$2}}')
+    if (debug) console.log(contents)
+    contents = contents.replace(/\${{>\s*([^}\s]+)(\s+([^}]+)\s*)?}}/g, '{{> ___goto __parentcontext__=.. __template__="$1"$2}}')
     contents = contents.replace(/<template name="/g, '<template name="' + dir)
     return contents
   },

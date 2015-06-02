@@ -1,4 +1,4 @@
-Tinytest.add("namespaced templating pre-scanner source processing", function (test) {
+Tinytest.add("namespaced templating pre-scanner basic source processing", function (test) {
   var res
 
   // basic template processing
@@ -7,6 +7,10 @@ Tinytest.add("namespaced templating pre-scanner source processing", function (te
 
   res = html_scanner.processSourcename('bar/foo.ns.html')
   test.equal(res, 'bar_foo')
+})
+
+Tinytest.add("namespaced templating pre-scanner clien/view directory source processing", function (test) {
+  var res
 
   // client/view template processing
   res = html_scanner.processSourcename('client/foo.ns.html')

@@ -52,6 +52,10 @@ _namespacer.prototype.setPath = function(name) {
   this.template_path = name
 }
 
+Template.registerHelper("set_template_path", function(data) {
+  Namespacer.setPath(data)
+})
+
 Template.registerHelper("___goto", function() {
   var args = Array.prototype.slice.call(arguments)
   if (args[1] === '***noargs***') {

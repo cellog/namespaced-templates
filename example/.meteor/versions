@@ -6,7 +6,7 @@ blaze@2.1.2
 blaze-tools@1.0.3
 boilerplate-generator@1.0.3
 callback-hook@1.0.3
-cellog:namespaced-templates@0.2.0
+cellog:namespaced-templates@0.3.0
 check@1.0.5
 ddp@1.1.0
 deps@1.0.7

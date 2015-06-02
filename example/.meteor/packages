@@ -7,4 +7,4 @@
 meteor-platform
 autopublish
 insecure
-cellog:namespaced-templates@0.2.0
+cellog:namespaced-templates@0.3.0

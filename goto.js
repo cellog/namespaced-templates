@@ -23,6 +23,23 @@ _namespacer.prototype.getTemplate = function(name) {
   return name
 }
 
+_namespacer.prototype.apply = function(name, tocall, arg, path) {
+  path = path.split(':')
+  path.forEach(function (p) {
+    var t = Template[p ? p + '_' + name : name]
+    if (!t) return
+    t[tocall].call(t, arg)
+  })
+}
+
+_namespacer.prototype.helpers = function(name, helpers, path) {
+  this.apply(name, 'helpers', helpers, path)
+}
+
+_namespacer.prototype.events = function(name, events, path) {
+  this.apply(name, 'events', events, path)
+}
+
 _namespacer.prototype.getPath = function() {
   tracker.depend()
   return this.template_path

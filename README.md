@@ -78,12 +78,52 @@ This will compile into:
 
 ```html
 <template name="fancytemplate_mine">
-{{>___goto __template__="mine_subtemplate" arg1name=arg1 arg2name="arg2"}}
+{{>Template.dynamic ___goto "mine_subtemplate" arg1name=arg1 arg2name="arg2"}}
 </template>
 ```
 
 `___goto` is a global helper that dynamically determines the template to include based on
-the current template path and calls it using `Template.dynamic`, any arguments you pass will become the template's context
+the current template path. any arguments you pass will become the template's context.  If you don't pass any arguments:
+
+```html
+<template name="mine">
+${{>mine_subtemplate}}
+</template>
+```
+
+It compiles into:
+
+```html
+<template name="fancytemplate_mine">
+{{>Template.dynamic ___goto "mine_subtemplate" "***noargs***"}}
+</template>
+```
+
+and the ___goto helper will return the current data context
+
+### Calling non-namespaced templates
+
+To call a non-namespaced template, use the original syntax:
+
+```html
+<template name="mine">
+{{>normal_template}}
+</template>
+```
+
+The only templates that will be parsed are those with a `$` in front.
+
+### Calling templates to display dollar amounts
+
+If you wish to display a dollar amount, use any text in between the `$` and the template call.  For example:
+
+```html
+<template name="moneytemplate">
+${{!}}{{>get_dollar_amount}}
+$ {{>get_dollar_amount}}
+<span class="prefix">$</span>{{>get_dollar_amount}}
+</template>
+```
 
 ### Template helpers and events
 
@@ -99,6 +139,37 @@ Template.fancytemplate_mine.events({
   'click #thing': function(e) {/*...*/}
 })
 ```
+
+#### Global template helpers
+
+If you wish to re-use the same helpers and events for several templates with the same name, use the `Namespacer` object's
+`events` and `helpers` method, and pass a template path for each template you wish to set the helper or event:
+
+```Javascript
+Namespacer.helpers('mine', {
+  helper1: function(){/*...*/}
+}, 'fancytemplate:another')
+
+Namespacer.events('mine', {
+  'click #thing': function(){/*...*/}
+}, 'fancytemplate:another')
+```
+
+These will set the helper and event callbacks for `fancytemplate_mine` and `another_mine`
+
+If you also wish to set for an un-namespaced template, end the template path with `:` as in:
+
+```Javascript
+Namespacer.helpers('mine', {
+  helper1: function(){/*...*/}
+}, 'fancytemplate:another:')
+
+Namespacer.events('mine', {
+  'click #thing': function(){/*...*/}
+}, 'fancytemplate:another:')
+```
+
+These will set the helper and event callbacks for `fancytemplate_mine`, `another_mine` and `mine`
 
 ### Template path
 

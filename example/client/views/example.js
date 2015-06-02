@@ -5,12 +5,13 @@ Template.body.events({
 })
 
 Template.body.helpers({
-  template_path: function() {
-    return Namespacer.getPath()
-  },
   selected: function(path) {
     if (path == Namespacer.getPath()) {
       return {checked: ""}
     }
   }
+})
+
+Template.registerHelper("datadump", function() {
+  return Spacebars.SafeString('<pre>' + EJSON.stringify(this) + "</pre>")
 })

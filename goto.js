@@ -4,7 +4,6 @@ function _namespacer(path) {
  this.template_path = path
 }
 
-
 Namespacer = new _namespacer('')
 
 _namespacer.prototype.getTemplate = function(name) {
@@ -36,22 +35,10 @@ _namespacer.prototype.setPath = function(name) {
   this.template_path = name
 }
 
-var template_path
-Template.___goto.helpers({
-  __goto__: function() {
-    return Namespacer.getTemplate(this.__template__)
-  },
-  __args__: function() {
-    var x = _.extend({}, this)
-    if (x.length == 2 && undefined !== x.__parentcontext__) {
-      return x.__parentcontext__
-    }
-    delete x.__template__
-    delete x.__parentcontext__
-    return x
+Template.registerHelper("___goto", function() {
+  var args = Array.prototype.slice.call(arguments)
+  if (args[1] === '***noargs***') {
+    return {template: Namespacer.getTemplate(args[0]), data: Template.currentData()}
   }
-})
-
-Template.registerHelper('set_template_path', function(data) {
-  Namespacer.setPath(data)
+  return {template: Namespacer.getTemplate(args[0]), data: args[1].hash}
 })

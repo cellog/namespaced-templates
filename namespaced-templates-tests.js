@@ -27,16 +27,16 @@ Tinytest.add("namespaced templating testing ${{>template}} replacement pre-scann
 
   // replace ${{>
   res = html_scanner.preScan('<template name="foo">{{>other}}${{>our}}</template>', 'foo_tpl')
-  test.equal(res, '<template name="foo_foo">{{>other}}{{> ___goto __parentcontext__=.. __template__="our"}}</template>')
+  test.equal(res, '<template name="foo_foo">{{>other}}{{> Template.dynamic ___goto "our" "***noargs***"}}</template>')
 
   res = html_scanner.preScan('<template name="foo">{{>other}}${{>our item1="thing" }}</template>', 'foo_tpl')
-  test.equal(res, '<template name="foo_foo">{{>other}}{{> ___goto __parentcontext__=.. __template__="our" item1="thing" }}</template>')
+  test.equal(res, '<template name="foo_foo">{{>other}}{{> Template.dynamic ___goto "our" item1="thing" }}</template>')
 
   // 2 templates in the same file
   res = html_scanner.preScan('<template name="foo">{{>other}}${{>our item1="thing" }}</template>' +
                              '<template name="next">${{>bar}}</template>', 'foo_tpl')
-  test.equal(res, '<template name="foo_foo">{{>other}}{{> ___goto __parentcontext__=.. __template__="our" item1="thing" }}</template>' +
-                  '<template name="foo_next">{{> ___goto __parentcontext__=.. __template__="bar"}}</template>')
+  test.equal(res, '<template name="foo_foo">{{>other}}{{> Template.dynamic ___goto "our" item1="thing" }}</template>' +
+                  '<template name="foo_next">{{> Template.dynamic ___goto "bar" "***noargs***"}}</template>')
 
 })
 
@@ -65,6 +65,13 @@ Tinytest.add("namespaced template with <body> tag pre-scanner", function(test) {
     "<h2>Please select a template path</h2>\n" +
     "<input type=\"radio\" name=\"template\" id=\"first\" value=\"first:second\"><label for=\"first\">first:second</label>\n" +
     "<input type=\"radio\" name=\"template\" id=\"second\" value=\"second:first\"><label for=\"second\">second:first</label>\n" +
-    "{{> ___goto __parentcontext__=.. __template__=\"hello\"}}\n" +
+    "{{> Template.dynamic ___goto \"hello\" \"***noargs***\"}}\n" +
     "</body>")
+})
+
+Tinytest.add("whitespace at end of template tag", function(test) {
+  var res
+  
+  res = html_scanner.preScan("<template name=\"test\">${{> subthing }}</template>", 'foo')
+  test.equal(res, "<template name=\"test\">{{> Template.dynamic ___goto \"subthing\" \"***noargs***\"}}</template>")
 })

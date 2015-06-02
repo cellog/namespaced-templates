@@ -1,6 +1,6 @@
 Package.describe({
   name: 'cellog:namespaced-templates',
-  version: '0.0.2',
+  version: '0.2.0',
   // Brief, one-line summary of the package.
   summary: 'Namespaced spacebars templates reduce work and allow greater flexibility',
   // URL to the Git repository containing the source code for this package.
@@ -14,7 +14,6 @@ Package.onUse(function(api) {
   api.use('spacebars-compiler')
   api.use('tracker')
   api.export('Namespacer')
-  api.addFiles('goto.html', 'client')
   api.addFiles('goto.js', 'client')
 });
 

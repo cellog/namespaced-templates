@@ -24,7 +24,12 @@ html_scanner = {
     dir = dir.join('_')
     if (dir.length) dir += '_'
     if (debug) console.log(contents)
-    contents = contents.replace(/\${{>\s*([^}\s]+)(\s+([^}]+)\s*)?}}/g, '{{> ___goto __parentcontext__=.. __template__="$1"$2}}')
+    contents = contents.replace(/\${{>\s*([^}\s]+)(\s+([^}]+)\s*)?\s*}}/g, function(match, template, args) {
+      if (args) {
+        return '{{> Template.dynamic ___goto "' + template + '"' + args + '}}'
+      }
+      return '{{> Template.dynamic ___goto "' + template + '" "***noargs***"}}'
+    })
     contents = contents.replace(/<template name="/g, '<template name="' + dir)
     return contents
   },

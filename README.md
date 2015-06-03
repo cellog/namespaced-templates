@@ -171,6 +171,30 @@ Namespacer.events('mine', {
 
 These will set the helper and event callbacks for `fancytemplate_mine`, `another_mine` and `mine`
 
+### Accessing template path in javascript
+
+The `Namespacer` object is exported, with basic reactive API for setting and retrieving the template path
+
+#### Setting and getting template path
+
+```Javascript
+Namespacer.setPath('maintemplate:anothertemplate')
+
+var path = Namespacer.getPath() // reactive, can be used to trigger re-render on change
+```
+
+#### Resolving a template name
+
+```Javascript
+Namespacer.setPath('maintemplate:another')
+
+var templatename = Namespacer.getTemplate('foo')
+
+// if "maintemplate_foo" exists, it will be returned
+// if not, if "another_foo" exists, it will be returned
+// if not, "foo" is returned regardless of whether the template exists
+```
+
 ### Template path
 
 The template path can be set in your top-level template using this simple helper:

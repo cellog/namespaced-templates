@@ -10,20 +10,24 @@ html_scanner = {
   ParseError: function () {
   },
 
+  debug: false,
+
   bodyAttributes : [],
 
   processSourcename: function(source) {
-    return source
+    dir = source
       .replace(/^client\//g, '')
       .replace(/^views\//g, '')
-      .replace('.ns.html', '').replace('/', '_')
-  },
-  preScan: function(contents, source, debug) {
-    var dir = this.processSourcename(source).split('_')
+      .replace('.ns.html', '').replace('_', '**^*^*').replace('/', '_').split('_')
     dir.pop()
     dir = dir.join('_')
     if (dir.length) dir += '_'
-    if (debug) console.log(contents)
+    dir = dir.replace('**^*^*', '_')
+    if (this.debug) console.log(dir)
+    return dir
+  },
+  preScan: function(contents, source, debug) {
+    var dir = this.processSourcename(source)
     contents = contents.replace(/\${{>\s*([^}\s]+)(\s+([^}]+)\s*)?\s*}}/g, function(match, template, args) {
       if (args) {
         return '{{> Template.dynamic ___goto "' + template + '"' + args + '}}'
@@ -31,6 +35,7 @@ html_scanner = {
       return '{{> Template.dynamic ___goto "' + template + '" "***noargs***"}}'
     })
     contents = contents.replace(/<template name="/g, '<template name="' + dir)
+    if (this.debug) console.log(contents)
     return contents
   },
   scan: function (contents, source_name) {

@@ -18,11 +18,10 @@ html_scanner = {
     dir = source
       .replace(/^client\//g, '')
       .replace(/^views\//g, '')
-      .replace('.ns.html', '').replace('_', '**^*^*').replace('/', '_').split('_')
+      .replace('.ns.html', '').split(/[\\\/]/)
     dir.pop()
     dir = dir.join('_')
     if (dir.length) dir += '_'
-    dir = dir.replace('**^*^*', '_')
     if (this.debug) console.log(dir)
     return dir
   },

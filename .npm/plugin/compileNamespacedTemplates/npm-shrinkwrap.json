@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "debug": {
+      "version": "2.2.0",
+      "dependencies": {
+        "ms": {
+          "version": "0.7.1"
+        }
+      }
+    }
+  }
+}

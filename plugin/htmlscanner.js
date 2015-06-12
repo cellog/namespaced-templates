@@ -1,3 +1,6 @@
+var path = Npm.require('path');
+var dirdebug = Npm.require('debug')('cellog:ns:dir')
+
 html_scanner = {
   // Scan a template file for <head>, <body>, and <template>
   // tags and extract their contents.
@@ -10,8 +13,6 @@ html_scanner = {
   ParseError: function () {
   },
 
-  debug: false,
-
   bodyAttributes : [],
 
   processSourcename: function(source) {
@@ -22,10 +23,10 @@ html_scanner = {
     dir.pop()
     dir = dir.join('_')
     if (dir.length) dir += '_'
-    if (this.debug) console.log(dir)
+    dirdebug("source: " + source + ", to: " + dir)
     return dir
   },
-  preScan: function(contents, source, debug) {
+  preScan: function(contents, source) {
     var dir = this.processSourcename(source)
     contents = contents.replace(/\${{>\s*([^}\s]+)(\s+([^}]+)\s*)?\s*}}/g, function(match, template, args) {
       if (args) {
@@ -34,7 +35,7 @@ html_scanner = {
       return '{{> Template.dynamic ___goto "' + template + '" "***noargs***"}}'
     })
     contents = contents.replace(/<template name="/g, '<template name="' + dir)
-    if (this.debug) console.log(contents)
+    Npm.require('debug')('cellog:ns:scanner:' + dir + '/' + path.basename(source))(contents)
     return contents
   },
   scan: function (contents, source_name) {

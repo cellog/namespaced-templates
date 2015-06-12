@@ -287,6 +287,39 @@ To switch back to displaying the list template, simply change the template path 
 
 or remove the template path.
 
+## Debugging namespaced templates
+
+The `cellog:namespaced-templates` package uses npm's [https://www.npmjs.com/package/debug](debug) package to print out
+debugging information.  All debug output is selectable with the `cellog:ns:*` debug option, set in the `DEBUG`
+environment variable on meteor startup:
+
+```
+DEBUG="cellog:ns:*" meteor
+```
+
+For each template file, the directory transformation is logged if `cellog:ns:dir` is enabled.  Sample output:
+
+```
+source: client/views/my/fancy/template.ns.html, output: my_fancy
+```
+
+The full pre-processed template can be viewed via the `cellog:ns:scanner:<directory>/<filename>` debug option.  To view
+all templates, select `cellog:ns:scanner:*`.  To view a specific file, select its processed directory name, a slash, 
+and the filename.  For example, the `client/views/my/fancy/template.ns.html` compiled output can be specifically
+viewed via:
+
+```
+DEBUG="cellog:ns:my_fancy/template.ns.html" meteor
+```
+
+To view all the compiled templates from `client/views/my/fancy/`:
+
+```
+DEBUG="cellog:ns:my_fancy/*" meteor
+```
+
+and so on.
+
 ## Future road map
 
 Currently, the code to parse .ns.html is a copy/paste of the template parsing code from meteor spacebars.  It would be
